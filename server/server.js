@@ -31,7 +31,7 @@ app.listen(port, () => {
 // 1.1 GET USERS
 app.get('/api/v1/user', async (req, res) => {
 	try {
-		const results = await db.query('SELECT * FROM mock_data');
+		const results = await db.query('SELECT * FROM person');
 		res.status(200).json({
 			status: 'success',
 			data: {
@@ -50,10 +50,9 @@ app.get('/api/v1/user', async (req, res) => {
 // REQUIRES AUTHENTICATION
 app.get('/api/v1/user/:id', async (req, res) => {
 	try {
-		const results = await db.query(
-			'SELECT * FROM mock_data WHERE id = $1',
-			[req.params.id]
-		);
+		const results = await db.query('SELECT * FROM person WHERE id = $1', [
+			req.params.id,
+		]);
 		res.status(200).json({
 			status: 'success',
 			data: results.rows[0],
@@ -79,15 +78,8 @@ app.post('/api/v1/user', async (req, res) => {
 	} = req.body;
 	try {
 		const results = await db.query(
-			'INSERT INTO mock_data (first_name, last_name, email, gender, ip_address, country_of_origin) VALUES ($1, $2, $3, $4, $5, $6)',
-			[
-				first_name,
-				last_name,
-				email,
-				gender,
-				ip_address,
-				country_of_origin,
-			]
+			'INSERT INTO mock_data (username, password, email, dob) VALUES ($1, $2, $3, $4)',
+			[username, password, email, dob]
 		);
 		res.status(200).json({
 			status: 'success',
@@ -101,26 +93,11 @@ app.post('/api/v1/user', async (req, res) => {
 // 1.4 EDIT USER
 app.put('/api/v1/user/:id', async (req, res) => {
 	console.log(req.body);
-	const {
-		first_name,
-		last_name,
-		email,
-		gender,
-		ip_address,
-		country_of_origin,
-	} = req.body;
+	const { username, password, email, dob } = req.body;
 	try {
 		const results = await db.query(
 			'UPDATE mock_data SET first_name = $2, last_name = $3, email = $4, gender = $5, ip_address = $6, country_of_origin = $7 WHERE id = $1',
-			[
-				req.params.id,
-				first_name,
-				last_name,
-				email,
-				gender,
-				ip_address,
-				country_of_origin,
-			]
+			[req.params.id, username, password, email, dob]
 		);
 		res.status(200).json({
 			status: 'success',
@@ -136,16 +113,36 @@ app.put('/api/v1/user/:id', async (req, res) => {
 2. POST DATA
 ----------------------------------------------------------------------------------------------------------------
 */
-app.get('/api/v1/posts', (req, res) => {
-	res.status(200).json({
-		status: 'success',
-		data: {
-			id: 1,
-			title: 'First Post',
-			body: 'This is the first post',
-		},
-	});
+
+// 2.1 GET POSTS
+app.get('/api/v1/post', async (req, res) => {
+	try {
+		const results = await db.query('SELECT * FROM post');
+		res.status(200).json({
+			status: 'success',
+			data: results.rows,
+		});
+	} catch (error) {
+		console.log(error);
+	}
 });
+
+// 2.2 GET SPECIFIC POST
+app.get('/api/v1/post/:id', async (req, res) => {
+	try {
+		const results = await db.query('SELECT * FROM post WHERE id = $1', [
+			req.params.id,
+		]);
+		res.status(200).json({
+			status: 'success',
+			data: results.rows[0],
+		});
+	} catch (error) {
+		console.log(error);
+	}
+});
+
+// 2.3 CREATE POST
 app.get('/api/v1/posts', (req, res) => {
 	res.status(200).json({
 		status: 'success',
