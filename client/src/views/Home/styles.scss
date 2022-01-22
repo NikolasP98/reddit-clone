@@ -1,0 +1,54 @@
+$border-light: rgb(129, 131, 132);
+$border-dark: rgb(52, 53, 54);
+
+$gray-light: rgb(45, 45, 46);
+$gray-dark: rgb(26, 26, 27);
+$gray-darker: rgb(22, 22, 23);
+
+$color-like: rgb(255, 69, 0);
+$color-dislike: rgb(113, 147, 255);
+
+.content {
+	min-width: 500px;
+	max-width: 1100px;
+}
+
+.create-post {
+	background-color: $gray-dark;
+	margin: 0.5rem;
+	border-radius: 4px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 0.5rem;
+	gap: 20px;
+	border: 1px solid $border-dark;
+
+	& > * {
+		cursor: pointer;
+	}
+
+	input {
+		background-color: $gray-light;
+		border: 1px solid $border-dark;
+		border-radius: 4px;
+		width: 100%;
+		padding: 0.5rem 1rem;
+		color: rgb(215, 218, 220);
+
+		&:hover {
+			border-color: $border-light;
+		}
+	}
+
+	.create-icon {
+		width: 1.5rem;
+		height: 1.5rem;
+		padding: 0.5rem;
+		border-radius: 4px;
+
+		&:hover {
+			background-color: $gray-light;
+		}
+	}
+}

@@ -1,0 +1,106 @@
+$border-light: rgb(129, 131, 132);
+$border-dark: rgb(52, 53, 54);
+
+$gray-light: rgb(45, 45, 46);
+$gray-dark: rgb(26, 26, 27);
+$gray-darker: rgb(22, 22, 23);
+
+$color-like: rgb(255, 69, 0);
+$color-dislike: rgb(113, 147, 255);
+
+.post {
+	background-color: $gray-dark;
+	margin: 0.5rem;
+	border-radius: 4px;
+	display: flex;
+	flex-direction: row;
+	cursor: pointer;
+	border: 1px solid $border-dark;
+
+	&:hover {
+		border-color: $border-light;
+	}
+}
+
+.like-count {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	align-items: center;
+	background-color: $gray-darker;
+	padding: 0.5rem;
+
+	.count {
+		font-weight: bold;
+	}
+
+	// (DIS)LIKE BUTTONS
+
+	.arrow-icon {
+		width: 1.25rem;
+		height: 1.25rem;
+
+		&:hover {
+			filter: brightness(0.8);
+		}
+	}
+
+	.icon-liked {
+		color: $color-like;
+	}
+	.icon-disliked {
+		color: $color-dislike;
+	}
+}
+
+.main-section {
+	.content {
+		padding: 0.5rem;
+		width: 100%;
+
+		.post-metadata {
+			display: flex;
+			flex-direction: row;
+			gap: 5px;
+			margin-bottom: 0.5rem;
+
+			.subreddit {
+				font-weight: bold;
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+
+			.author {
+				color: $border-light;
+				.username {
+					&:hover {
+						text-decoration: underline;
+					}
+				}
+			}
+		}
+		.post-title {
+			margin-top: 0;
+		}
+	}
+	.stats {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		color: $border-light;
+		& > * {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			gap: 5px;
+			padding: 0.5rem;
+
+			height: 100%;
+
+			&:hover {
+				background-color: $gray-light;
+			}
+		}
+	}
+}
